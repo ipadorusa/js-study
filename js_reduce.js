@@ -14,7 +14,6 @@ people.forEach(key => {
 
 let d = people.reduce((obj, t) => (obj[t] = obj[t] ? obj[t]+1 : 1, obj),{});
 
-
-
-let f = people.reduce((acc, cur) => (acc[cur] = acc[cur] ? acc[cur] + 1 : 1, acc),{});
-
+/* function solution(arr) {
+  arr.filter((val, idx) => log("val, idx", val, idx, val != arr[idx + 1]))
+} */
