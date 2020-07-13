@@ -1,58 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <button type="button" id="btnChk">make table</button>
-  <div id="re"></div>
-  <button type="button" id="btnChk2">check sum</button>
-  <script>
-    const log = console.log;
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button type="button" id="btnChk">make table</button>
+		<div id="result"></div>
+		<button type="button" id="btnChk2">check sum</button>
+		<div id="list"></div>
+		<script>
+			const log = console.log
 
-    let data = {
-        selector: ['Light Bootstrap', 'Material', 'Paper', 'CoPilot', 'element'],
-        names: ['전경환', '심재욱', '김우석', '오현중', '박정아', '임해빈']
-      };
-    document.getElementById('btnChk').addEventListener('click', () => renderTable());
-    let dom = document.getElementById('re');   
-    function renderTable() {
-        
-        dom.innerHTML = data.names.reduce((html, acc, idx) => {        
-          html += `
+			let data = {
+				selector: [
+					'Light Bootstrap',
+					'Material',
+					'Paper',
+					'CoPilot',
+					'element',
+				],
+				names: ['전경환', '심재욱', '김우석', '오현중', '박정아', '임해빈'],
+			}
+			document
+				.getElementById('btnChk')
+				.addEventListener('click', () => renderTable())
+			let dom = document.getElementById('result')
+			function renderTable() {
+				dom.innerHTML =
+					data.names.reduce((html, acc, idx) => {
+						html += `
           <tr>
-            <th>${data.names[idx]}</th>`;
-            for(let i=0,max=data.selector.length;i<max;i++) {
-            html += `<td><input type="checkbox" value="${data.selector[i]}" /></td>`
-            }
-          html += '</tr>';
-          return html;
-        },'<table><tbody>') + '</tbody></table>';
-      }
+            <th>${data.names[idx]}</th>`
+						for (let i = 0, max = data.selector.length; i < max; i++) {
+							html += `<td><input type="checkbox" value="${data.selector[i]}" /></td>`
+						}
+						html += '</tr>'
+						return html
+					}, '<table><tbody>') + '</tbody></table>'
+			}
 
-    document.getElementById('btnChk2').addEventListener('click', () => {
-      let chkInputs = document.querySelectorAll('input:checked');
-      let countArr = Array.from(chkInputs).map(el => el.value).reduce((c, e) => {        
-        c[e] = (c[e] || 0) + 1;
-        return c;
-      }, {})
-      let reformArr = Object.entries(countArr).reduce((result, [key, value])=> {
-        return [...result, {name: key, count: value}];
-      }, []);
+			document.getElementById('btnChk2').addEventListener('click', () => {
+				let chkInputs = document.querySelectorAll('input:checked')
+				let list = document.getElementById('list')
+				let countArr = Array.from(chkInputs)
+					.map((el) => el.value)
+					.reduce((c, e) => {
+						c[e] = (c[e] || 0) + 1
+						return c
+					}, {})
 
-      log(reformArr)
+				let reformArr = Object.entries(countArr)
+					.reduce((result, [key, value]) => {
+						return [...result, { name: key, count: value }]
+					}, [])
+					.sort((a, b) => b.count - a.count)
+				log(reformArr)
 
-    });
-
-    
-    
-
-    
-
-    
-
-  </script>
-</body>
+				list.innerHTML =
+					reformArr.reduce((html, acc, idx) => {
+						html += `<li><span>${reformArr[idx].name} : </span><span>${reformArr[idx].count}</span></li>`
+						return html
+					}, '<ul>') + '</ul>'
+			})
+		</script>
+	</body>
 </html>
