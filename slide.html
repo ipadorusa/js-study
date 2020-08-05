@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div>
+			<button type="button" id="add">add</button>
+		</div>
+		<div id="hi"></div>
+		<script>
+			const slideObj = {
+				names: [
+					'https://dummyimage.com/600x400/000/fff&text=1',
+					'https://dummyimage.com/600x400/000/fff&text=2',
+					'https://dummyimage.com/600x400/000/fff&text=3',
+				],
+			}
+
+			const RollingSlide = class {
+				constructor(category, name, el) {
+					this.category = category
+					this.name = name
+					this.data = undefined
+					this.slideLen = undefined
+					this.el = el
+				}
+				load(url) {
+					this.data = url
+					this.slideLen = this.data.length
+					this.render()
+				}
+				render() {
+					const list = document.querySelector(this.el)
+					const imgs = this.data.names
+					list.innerHTML =
+						imgs.reduce((html, cur, idx) => {
+							html += `<li><img src="${cur}"></li>`
+							return html
+						}, '<ul>') + '</ul>'
+				}
+			}
+			document.querySelector('#add').addEventListener('click', () => {
+				const slide = new RollingSlide('window', 'cam', '#hi').load(slideObj)
+			})
+		</script>
+	</body>
+</html>
