@@ -14,18 +14,43 @@ people.forEach(key => {
   a[key] = a[key] ? a[key] +1 : 1
 })
 
+function sol() {
+  var dic = completion.reduce((obj, t)=> (obj[t]= obj[t] ? obj[t]+1 : 1 , obj) ,{});
+return participant.find(t=> {
+    if(dic[t])
+        dic[t] = dic[t]-1;
+    else 
+        return true;
+});
 
-var dic = completion.reduce((obj, t)=> (obj[t]= obj[t] ? obj[t]+1 : 1 , obj) ,{});
-  return participant.find(t=> {
-      if(dic[t])
-          dic[t] = dic[t]-1;
-      else 
-          return true;
-  });
+}
+
+const log = console.log;
+let participant = ['billyBobs', 'Ggg', 'jung', 'billyBobs', 'aaaaaaaaaaaaaaaaaaaa1404', 'bhavin111', 'asda', 'sarewqr', 'shubhamoiuhg', 'testGirish20'];
+let completion = ['billyBobs', 'Ggg', 'jung', 'billyBobs', 'aaaaaaaaaaaaaaaaaaaa1404', 'bhavin111', 'asda', 'sarewqr', 'shubhamoiuhg'];
+
+
+function sol(participant, completion) {
+  
+  var dic = completion.reduce((acc, cur) => {
+    acc[cur] = acc[cur] ? acc[cur] + 1 : 1
+    return acc
+  },{})
+
+  return participant.find(t => {
+    if(dic[t]) {
+      dic[t] = dic[t] - 1
+    }else {
+      return true
+    }
+  })
+}
+
+
+sol(participant, completion);
 
 
 
-let d = people.reduce((obj, t) => (obj[t] = obj[t] ? obj[t]+1 : 1, obj),{});
 
 /* function solution(arr) {
   arr.filter((val, idx) => log("val, idx", val, idx, val != arr[idx + 1]))
