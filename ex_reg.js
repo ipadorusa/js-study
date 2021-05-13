@@ -1,5 +1,5 @@
 /**
- * Number formatting * 
+ * 10000 => "10,000" 
  * @param {number, string} n
  */
 
